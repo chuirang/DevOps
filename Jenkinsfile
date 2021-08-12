@@ -86,6 +86,9 @@ spec:
     stage('Kubernetes deploy') {
       steps {
         container('kubectl') {
+          script {
+            env.IMAGE_TAG = "${params.tag}"
+          }
           withCredentials([kubeconfigContent(credentialsId: "${K8S_CREDENTIAL_ID}", variable: 'KUBECONFIG_CONTENT')]) {
             sh '''echo "$KUBECONFIG_CONTENT" > kubeconfig'''
             sh 'kubectl --kubeconfig=kubeconfig apply -f k8s/deployment.yaml'
