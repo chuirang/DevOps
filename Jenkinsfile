@@ -86,8 +86,8 @@ spec:
         container('kubectl') {
         //  kubernetesDeploy configs: "k8s/deployment.yaml", kubeconfigId: "${K8S_CREDENTIAL_ID}"
         //  sh 'kubectl --kubeconfig=/root/.jenkins/.kube/config rollout restart deployment/sampleapp'
-          withKubeConfig([credentialsId: "${K8S_CREDENTIAL_ID}"]) {
-            sh 'kubectl apply -f k8s/deployment.yaml' //rollout restart deployment/sampleapp'
+          withKubeConfig([credentialsId: "${K8S_CREDENTIAL_ID}", serverUrl: 'https://172.16.3.141:6443']) {
+            sh 'kubectl apply -f k8s/deployment.yaml'
           }
         }
         
