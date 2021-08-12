@@ -67,7 +67,7 @@ spec:
             )]) {
               //sh "docker login -u ${USERNAME} -p ${PASSWORD}"
               //sh "docker build -t ${USERNAME}/sampleapp:${env.IMAGE_TAG} ."
-              sh "docker push ${USERNAME}/sampleapp:${env.IMAGE_TAG}"
+              //sh "docker push ${USERNAME}/sampleapp:${env.IMAGE_TAG}"
             }
           }
         }
