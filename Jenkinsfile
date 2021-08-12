@@ -58,7 +58,7 @@ spec:
           script {
             env.IMAGE_TAG = "${params.tag}"
           }
-          //sh 'cp -r * /home/jenkins/agent/workspace/Week4_wonkilee/'
+          
           dir('docker') {
             withCredentials([usernamePassword(
               credentialsId: "${DOCKER_CREDENTIAL_ID}", // credentialsId
@@ -76,7 +76,7 @@ spec:
 
     stage('Kubernetes deploy') {
       steps {
-        kubernetesDeploy configs: "deployment.yaml", kubeconfigId: '${K8S_CREDENTIAL_ID}'
+        kubernetesDeploy configs: "deployment.yaml", kubeconfigId: "${K8S_CREDENTIAL_ID}"
         sh "kubectl --kubeconfig=/root/.jenkins/.kube/config rollout restart deployment/sampleapp"
       }
     }
