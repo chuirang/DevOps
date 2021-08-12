@@ -76,11 +76,13 @@ spec:
 
     stage('Kubernetes deploy') {
       steps {
-        //kubernetesDeploy configs: "k8s/deployment.yaml", kubeconfigId: "${K8S_CREDENTIAL_ID}"
-        //sh "kubectl --kubeconfig=/root/.jenkins/.kube/config rollout restart deployment/sampleapp"
-        withKubeConfig([credentialsId: "${K8S_CREDENTIAL_ID}"]) {
-          sh 'kubectl  -f k8s/deployment.yaml rollout restart deployment/sampleapp'
-        }
+        kubernetesDeploy configs: "k8s/deployment.yaml", kubeconfigId: "${K8S_CREDENTIAL_ID}"
+        sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
+        sh 'chmod u+x ./kubectl'
+        sh "kubectl --kubeconfig=/root/.jenkins/.kube/config rollout restart deployment/sampleapp"
+        //withKubeConfig([credentialsId: "${K8S_CREDENTIAL_ID}"]) {
+        //  sh 'kubectl  -f k8s/deployment.yaml rollout restart deployment/sampleapp'
+        //}
       }
     }
   }
