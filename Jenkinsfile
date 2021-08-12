@@ -9,8 +9,6 @@ pipeline {
 apiVersion: v1
 kind: Pod
 spec:
-  securityContext:
-    runAsUser: 0
   containers:
   - name: shell
     image: ubuntu
@@ -32,6 +30,7 @@ spec:
     - sleep
     args:
     - infinity
+    tty: true
   volumes:
     - name: docker-sock
       hostPath:
