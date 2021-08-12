@@ -45,7 +45,6 @@ spec:
   environment {
     DOCKER_CREDENTIAL_ID = "wonkilee_dockerhub"
     K8S_CREDENTIAL_ID = "wonkilee_kubeconfig"
-    //K8S_CREDENTIAL_ID = "wonkilee_kubeconfig2"
   }
 
   stages {
@@ -87,19 +86,11 @@ spec:
     stage('Kubernetes deploy') {
       steps {
         container('kubectl') {
-        //  kubernetesDeploy configs: "k8s/deployment.yaml", kubeconfigId: "${K8S_CREDENTIAL_ID}"
-        //  sh 'kubectl --kubeconfig=/root/.jenkins/.kube/config rollout restart deployment/sampleapp'
-        //  withKubeConfig([credentialsId: "${K8S_CREDENTIAL_ID}", serverUrl: 'https://172.16.3.141:6443']) {
-        //    sh 'kubectl config view'
-        //    sh 'kubectl apply -f k8s/deployment.yaml'
-        //  }
           withCredentials([kubeconfigContent(credentialsId: "${K8S_CREDENTIAL_ID}", variable: 'KUBECONFIG_CONTENT')]) {
             sh '''echo "$KUBECONFIG_CONTENT" > kubeconfig'''
-            //sh 'kubectl --kubeconfig=kubeconfig config view'
             sh 'kubectl --kubeconfig=kubeconfig apply -f k8s/deployment.yaml'
           }
         }
-        
       }
     }
   }
