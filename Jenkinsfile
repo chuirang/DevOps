@@ -58,9 +58,8 @@ spec:
           script {
             env.IMAGE_TAG = "${params.tag}"
           }
-          
+          sh 'cp -r * /home/jenkins/agent/workspace/Week4_wonkilee/'
           withCredentials([usernamePassword(
-            sh 'cp -r * /home/jenkins/agent/workspace/Week4_wonkilee/'
             credentialsId: "${DOCKER_CREDENTIAL_ID}", // credentialsId
             usernameVariable: 'USERNAME', // 사용자명을 ${USERNAME} 환경변수에 mapping
             passwordVariable: 'PASSWORD'  // 사용자암호를 ${PASSWORD} 환경변수에 mapping
