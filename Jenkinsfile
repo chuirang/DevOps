@@ -76,7 +76,7 @@ spec:
 
     stage('Kubernetes deploy') {
       steps {
-        kubernetesDeploy configs: "deployment.yaml", kubeconfigId: "${K8S_CREDENTIAL_ID}"
+        kubernetesDeploy configs: "k8s/deployment.yaml", kubeconfigId: "${K8S_CREDENTIAL_ID}"
         sh "kubectl --kubeconfig=/root/.jenkins/.kube/config rollout restart deployment/sampleapp"
       }
     }
