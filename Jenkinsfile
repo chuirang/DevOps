@@ -27,7 +27,9 @@ spec:
   - name: kubectl
     image: bitnami/kubectl:latest
     command:
-    - cat
+    - sleep
+    args:
+    - infinity
   volumes:
     - name: docker-sock
       hostPath:
