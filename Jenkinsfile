@@ -58,7 +58,7 @@ spec:
           script {
             env.IMAGE_TAG = "${params.tag}"
           }
-          sh 'cp -r * /home/jenkins/agent/workspace/Week4_wonkilee/'
+          //sh 'cp -r * /home/jenkins/agent/workspace/Week4_wonkilee/'
           dir('docker') {
             withCredentials([usernamePassword(
               credentialsId: "${DOCKER_CREDENTIAL_ID}", // credentialsId
