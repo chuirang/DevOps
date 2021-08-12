@@ -24,6 +24,10 @@ spec:
     volumeMounts:
     - mountPath: /var/run/docker.sock
       name: docker-sock
+  - name: kubectl
+    image: bitnami/kubectl:latest
+    command:
+    - cat
   volumes:
     - name: docker-sock
       hostPath:
@@ -76,13 +80,16 @@ spec:
 
     stage('Kubernetes deploy') {
       steps {
-        kubernetesDeploy configs: "k8s/deployment.yaml", kubeconfigId: "${K8S_CREDENTIAL_ID}"
-        sh 'wget "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
-        sh 'chmod u+x ./kubectl'
-        sh "kubectl --kubeconfig=/root/.jenkins/.kube/config rollout restart deployment/sampleapp"
+        container('kubectl') {
+          kubernetesDeploy configs: "k8s/deployment.yaml", kubeconfigId: "${K8S_CREDENTIAL_ID}"
+        //sh 'wget "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
+        //sh 'chmod u+x ./kubectl'
+          sh "kubectl --kubeconfig=/root/.jenkins/.kube/config rollout restart deployment/sampleapp"
         //withKubeConfig([credentialsId: "${K8S_CREDENTIAL_ID}"]) {
         //  sh 'kubectl apply -f k8s/deployment.yaml' //rollout restart deployment/sampleapp'
         //}
+        }
+        
       }
     }
   }
