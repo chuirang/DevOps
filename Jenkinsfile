@@ -65,8 +65,8 @@ spec:
               usernameVariable: 'USERNAME', // 사용자명을 ${USERNAME} 환경변수에 mapping
               passwordVariable: 'PASSWORD'  // 사용자암호를 ${PASSWORD} 환경변수에 mapping
             )]) {
-              sh "docker login -u ${USERNAME} -p ${PASSWORD}"
-              sh "docker build -t ${USERNAME}/sampleapp:${env.IMAGE_TAG} ."
+              //sh "docker login -u ${USERNAME} -p ${PASSWORD}"
+              //sh "docker build -t ${USERNAME}/sampleapp:${env.IMAGE_TAG} ."
               sh "docker push ${USERNAME}/sampleapp:${env.IMAGE_TAG}"
             }
           }
@@ -77,9 +77,9 @@ spec:
     stage('Kubernetes deploy') {
       steps {
         kubernetesDeploy configs: "k8s/deployment.yaml", kubeconfigId: "${K8S_CREDENTIAL_ID}"
-        sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
-        sh 'chmod u+x ./kubectl'
-        sh "kubectl --kubeconfig=/root/.jenkins/.kube/config rollout restart deployment/sampleapp"
+        //sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
+        //sh 'chmod u+x ./kubectl'
+        //sh "kubectl --kubeconfig=/root/.jenkins/.kube/config rollout restart deployment/sampleapp"
         //withKubeConfig([credentialsId: "${K8S_CREDENTIAL_ID}"]) {
         //  sh 'kubectl  -f k8s/deployment.yaml rollout restart deployment/sampleapp'
         //}
