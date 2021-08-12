@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: sampleapp
-          image: chuirang/sampleapp:${params.tag}
+          image: chuirang/sampleapp:latest         
           env:
             - name: PORT
               value: "18186"
