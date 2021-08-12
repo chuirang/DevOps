@@ -59,14 +59,16 @@ spec:
             env.IMAGE_TAG = "${params.tag}"
           }
           sh 'cp -r * /home/jenkins/agent/workspace/Week4_wonkilee/'
-          withCredentials([usernamePassword(
-            credentialsId: "${DOCKER_CREDENTIAL_ID}", // credentialsId
-            usernameVariable: 'USERNAME', // 사용자명을 ${USERNAME} 환경변수에 mapping
-            passwordVariable: 'PASSWORD'  // 사용자암호를 ${PASSWORD} 환경변수에 mapping
-          )]) {
-            sh "docker login -u ${USERNAME} -p ${PASSWORD}"
-            sh "docker build -t ${USERNAME}/sampleapp:${env.IMAGE_TAG} ."
-            sh "docker push ${USERNAME}/sampleapp:${env.IMAGE_TAG}"
+          dir('docker') {
+            withCredentials([usernamePassword(
+              credentialsId: "${DOCKER_CREDENTIAL_ID}", // credentialsId
+              usernameVariable: 'USERNAME', // 사용자명을 ${USERNAME} 환경변수에 mapping
+              passwordVariable: 'PASSWORD'  // 사용자암호를 ${PASSWORD} 환경변수에 mapping
+            )]) {
+              sh "docker login -u ${USERNAME} -p ${PASSWORD}"
+              sh "docker build -t ${USERNAME}/sampleapp:${env.IMAGE_TAG} ."
+              sh "docker push ${USERNAME}/sampleapp:${env.IMAGE_TAG}"
+            }
           }
         }
       }
