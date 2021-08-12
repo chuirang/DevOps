@@ -41,8 +41,8 @@ spec:
 
   environment {
     DOCKER_CREDENTIAL_ID = "wonkilee_dockerhub"
-    //K8S_CREDENTIAL_ID = "wonkilee_kubeconfig"
-    K8S_CREDENTIAL_ID = "wonkilee_kubeconfig2"
+    K8S_CREDENTIAL_ID = "wonkilee_kubeconfig"
+    //K8S_CREDENTIAL_ID = "wonkilee_kubeconfig2"
   }
 
   stages {
@@ -72,9 +72,9 @@ spec:
               usernameVariable: 'USERNAME', // 사용자명을 ${USERNAME} 환경변수에 mapping
               passwordVariable: 'PASSWORD'  // 사용자암호를 ${PASSWORD} 환경변수에 mapping
             )]) {
-              //sh "docker login -u ${USERNAME} -p ${PASSWORD}"
-              //sh "docker build -t ${USERNAME}/sampleapp:${env.IMAGE_TAG} ."
-              //sh "docker push ${USERNAME}/sampleapp:${env.IMAGE_TAG}"
+              sh "docker login -u ${USERNAME} -p ${PASSWORD}"
+              sh "docker build -t ${USERNAME}/sampleapp:${env.IMAGE_TAG} ."
+              sh "docker push ${USERNAME}/sampleapp:${env.IMAGE_TAG}"
             }
           }
         }
