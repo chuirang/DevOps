@@ -35,7 +35,7 @@ spec:
 
   environment {
     DOCKER_CREDENTIAL_ID = "wonkilee_dockerhub"
-    K8S_CREDENTIAL_ID = "wonkilee_kubeconfig2"
+    K8S_CREDENTIAL_ID = "wonkilee_kubeconfig"
   }
 
   stages {
